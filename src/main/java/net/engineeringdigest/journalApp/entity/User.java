@@ -1,6 +1,7 @@
 package net.engineeringdigest.journalApp.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -10,8 +11,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
 // POJO Class
-@Document(collation = "users")
+@Document("user")
 @Data
+@NoArgsConstructor
 public class User {
     @Id
     private ObjectId _id;
