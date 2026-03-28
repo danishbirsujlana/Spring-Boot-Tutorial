@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 // POJO Class
 @Document
 @Data
-@NoArgsConstructor
+@NoArgsConstructor // We have to add a no-args constructor and @Data annotation of have Required-Args Constructor
 public class JournalEntry {
     @Id
     private ObjectId _id;

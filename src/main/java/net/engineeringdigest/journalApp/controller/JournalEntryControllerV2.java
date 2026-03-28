@@ -23,7 +23,7 @@ public class JournalEntryControllerV2 {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/grid/{username}")
+    @GetMapping("/grid")
     public List<JournalEntry> getAll(@PathVariable String username) {
         return journalEntryService.findAll();
     }
