@@ -1,0 +1,17 @@
+package net.engineeringdigest.journalApp.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration // To make this config global
+@EnableTransactionManagement  // To enable transaction (achieve atomicity)
+public class TransactionConfig {
+    @Bean
+    public PlatformTransactionManager implementMongoTransactionManager(MongoDatabaseFactory dbFactory) {
+        return new MongoTransactionManager(dbFactory);
+    }
+}

@@ -7,6 +7,7 @@ import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class JournalEntryService {
@@ -16,13 +17,18 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
+    @Transactional // Make a method transaction i.e. execute full program and roll back all when any line fail (atomicity)
     public void saveEntry(JournalEntry journalEntry, String username) {
-        User user = userService.findByUsername(username);
-        journalEntry.setCreatedAt(LocalDateTime.now());
-        journalEntry.setUpdatedAt(LocalDateTime.now());
-        JournalEntry savedEntry = journalEntryRepo.save(journalEntry);
-        user.getJournalEntries().add(savedEntry);
-        userService.saveEntry(user);
+        try {
+            User user = userService.findByUsername(username);
+            journalEntry.setCreatedAt(LocalDateTime.now());
+            journalEntry.setUpdatedAt(LocalDateTime.now());
+            JournalEntry savedEntry = journalEntryRepo.save(journalEntry);
+            user.getJournalEntries().add(savedEntry);
+            userService.saveEntry(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while saving entry", e);
+        }
     }
 
     // Overloading for update
