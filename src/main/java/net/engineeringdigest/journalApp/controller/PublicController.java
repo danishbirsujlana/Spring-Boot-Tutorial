@@ -18,7 +18,7 @@ public class PublicController {
     }
 
     // User creation is public and no need to authenticate here
-    @PostMapping("/user/create")
+    @PostMapping("/create-user")
     public void createUser(@RequestBody User user) {
         userService.saveNewUser(user);
     }
