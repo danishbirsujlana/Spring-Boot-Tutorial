@@ -16,16 +16,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/grid")
-    public List<User> getAllUsers() {
-        return userService.findAll();
-    }
-
-    @PostMapping("/create")
-    public void createUser(@RequestBody User user) {
-        userService.saveEntry(user);
-    }
-
     @PutMapping("/update/{username}")
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable String username) {
         User oldUser = userService.findByUsername(username);
