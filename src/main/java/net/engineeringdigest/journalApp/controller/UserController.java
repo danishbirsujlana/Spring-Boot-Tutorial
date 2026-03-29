@@ -24,7 +24,7 @@ public class UserController {
         User oldUser = userService.findByUsername(username);
         oldUser.setUsername(user.getUsername());
         oldUser.setPassword(user.getPassword());
-        userService.saveEntry(oldUser);
+        userService.saveNewUser(oldUser);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
