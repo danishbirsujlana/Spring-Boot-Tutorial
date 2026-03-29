@@ -83,8 +83,11 @@ public class JournalEntryControllerV2 {
         User user = userService.findByUsername(username);
         List<JournalEntry> collectedEntries = user.getJournalEntries().stream().filter(x -> x.get_id().equals(_id)).collect(Collectors.toList());
         if(!collectedEntries.isEmpty()) {
-            journalEntryService.saveEntry(updatedEntry);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            Optional<JournalEntry> oldEntry = journalEntryService.findById(_id);
+            if(oldEntry.isPresent()) {
+                journalEntryService.saveEntry(updatedEntry);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

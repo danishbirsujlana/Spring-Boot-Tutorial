@@ -23,6 +23,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter { // to configu
     protected void configure(HttpSecurity http) throws Exception { // configure are security based on endpoints
         http.authorizeRequests()
                 .antMatchers("/journal/**", "/user/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN") // only accessed by roles ADMIN
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic();
